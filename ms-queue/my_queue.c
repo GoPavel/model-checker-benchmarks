@@ -130,7 +130,7 @@ unsigned int dequeue(queue_t *q)
 
 	while (!success) {
 		head = atomic_load_explicit(&q->head, acquire);
-		tail = atomic_load_explicit(&q->tail, relaxed);
+		tail = atomic_load_explicit(&q->tail, acquire);
 		next = atomic_load_explicit(&q->nodes[get_ptr(head)].next, acquire);
 		if (atomic_load_explicit(&q->head, relaxed) == head) {
 			if (get_ptr(head) == get_ptr(tail)) {
